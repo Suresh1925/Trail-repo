@@ -2,15 +2,22 @@ pipeline {
     agent any
 
     stages {
-        stage('checkout') {
+        stage('Checkout') {
             steps {
-            checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: '1023d971-efb5-4f27-a44e-ed8dd4c67f1a', url: 'https://github.com/Suresh1925/Trail-repo.git']])
+                script {
+                    // Use the correct syntax for checking out code from Git
+                    checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '1023d971-efb5-4f27-a44e-ed8dd4c67f1a', url: 'https://github.com/Suresh1925/Trail-repo.git']]])
+                }
             }
         }
-         stage('Build') {
+
+        stage('Build and Run') {
             steps {
-            bat 'javac LeapYearFinder.java'
-              bat 'java LeapYearFinder value1 value2'
+                script {
+                    // Compile and run Java program
+                    bat 'javac LeapYearFinder.java'
+                    bat 'java LeapYearFinder 1992 2020'
+                }
             }
         }
     }
