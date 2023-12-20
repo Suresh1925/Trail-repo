@@ -9,8 +9,8 @@ pipeline {
         }
          stage('Build') {
             steps {
-            bat 'LeapYearFinder.java'
-              bat 'LeapYearFinder value1 value2'
+            bat 'javac LeapYearFinder.java'
+              bat 'java LeapYearFinder value1 value2'
             }
         }
     }
